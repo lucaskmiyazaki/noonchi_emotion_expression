@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Room Demo</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2 id="roomName"></h2>
+  <div id="controls">
+    <button id="cameraButton">Turn Camera Off</button>
+  </div>
+  <div id="container"></div>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script type="module" src="/static/main.js"></script>
+</body>
+</html>

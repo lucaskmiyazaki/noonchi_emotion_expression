@@ -1,6 +1,7 @@
 // main.js
 import { container, cameraButton, localStream, setLocalStream, roomName, userName } from "./config.js";
 import { socket } from "./socket.js";
+import { createFilteredStream } from "./streamFilter.js";
 import { createPeer } from "./webrtc.js";
 
 // Local video tile
@@ -26,11 +27,25 @@ async function startCamera() {
   if (localStream) return localStream;
 
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-    setLocalStream(stream);  // ✅ update the exported variable
-    localVideoEl.srcObject = stream;
+
+    // get original camera
+    const rawStream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true
+    });
+
+    // create filtered stream
+    const filteredStream = await createFilteredStream(rawStream);
+
+    // store filtered stream as local stream
+    setLocalStream(filteredStream);
+
+    // show locally
+    localVideoEl.srcObject = filteredStream;
     localVideoEl.onloadedmetadata = () => localVideoEl.play();
-    return stream;
+
+    return filteredStream;
+
   } catch (err) {
     console.error("Camera error:", err);
   }

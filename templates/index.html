@@ -6,8 +6,18 @@
 </head>
 <body>
   <h2 id="roomName"></h2>
+
+  <div id="video-container" style="position: relative; display: inline-block;">
+    <video id="localVideo" autoplay playsinline muted></video>
+    <canvas id="filterCanvas" style="position: absolute; top:0; left:0;"></canvas>
+</div>
+
   <div id="controls">
     <button id="cameraButton">Turn Camera Off</button>
+    <button onclick="setExpression('happy')">Happy</button>
+    <button onclick="setExpression('sad')">Sad</button>
+    <button onclick="setExpression('angry')">Angry</button>
+    <button onclick="setExpression('neutral')">Neutral</button>
   </div>
   <div id="container"></div>
 
